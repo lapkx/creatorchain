@@ -8,7 +8,6 @@ import {
   query,
   where,
   orderBy,
-  doc,
 } from "firebase/firestore";
 
 export default function ViewerDashboard() {
@@ -36,7 +35,7 @@ export default function ViewerDashboard() {
             id: doc.id,
             title: data.title,
             creator: data.creator || "unknown",
-            link: `https://creatorchain.vercel.app/share/${campaign.id}?ref=${user?.uid}`,
+            link: `https://creatorchain.vercel.app/share/${doc.id}?ref=${user?.uid}`,
             points: data.rewardPerShare || 0,
           };
         });
