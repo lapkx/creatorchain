@@ -1,65 +1,58 @@
+import { useEffect } from "react";
+import { useRouter } from "next/router";
 import Link from "next/link";
 import { ArrowRightIcon } from "@heroicons/react/24/solid";
 import { useAuth } from "../context/AuthContext";
 
 export default function Home() {
   const { user } = useAuth();
+  const router = useRouter();
 
-  const dashboardLink =
-    user?.role === "creator"
-      ? "/creator/dashboard"
-      : user?.role === "viewer"
-      ? "/viewer/dashboard"
-      : "/auth";
+  // Auto-redirect to dashboard if already logged in
+  useEffect(() => {
+    if (user?.role === "creator") {
+      router.push("/creator/dashboard");
+    } else if (user?.role === "viewer") {
+      router.push("/viewer/dashboard");
+    }
+  }, [user]);
 
   return (
-    <div className="min-h-screen text-white bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col items-center justify-center px-6">
-      {/* Logo / Brand */}
-      <header className="mb-16 text-center">
-        <h1 className="text-4xl md:text-5xl font-bold tracking-tight flex items-center justify-center gap-3 drop-shadow">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-10 w-10 text-indigo-400"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            strokeWidth={2}
-          >
-            <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
-          </svg>
-          <span>CreatorChain</span>
-        </h1>
-      </header>
+    <div className="min-h-screen bg-gradient-to-br from-[#0f0f11] via-[#1a1a1d] to-[#0f0f11] text-white flex flex-col items-center justify-center px-4 py-16">
+      {/* Title */}
+      <h1 className="text-4xl md:text-5xl font-extrabold mb-4 text-center">CreatorChain</h1>
 
-      {/* Hero Section */}
-      <main className="max-w-2xl text-center space-y-6">
-        <h2 className="text-3xl md:text-4xl font-semibold leading-snug">
-          Rewarding Viewers for Sharing Content
-        </h2>
-        <p className="text-base md:text-lg text-slate-300">
-          A platform where creators grow their audience and fans earn rewards by promoting content.
-        </p>
+      {/* Tagline */}
+      <h2 className="text-2xl md:text-3xl font-semibold text-center mb-2">
+        Grow with Your Fans — Reward Every Share
+      </h2>
 
-        {/* Call-to-Action Buttons */}
-        <div className="flex flex-col sm:flex-row justify-center gap-4 pt-6">
-          <Link href={user ? dashboardLink : "/auth"} legacyBehavior>
-            <a className="inline-flex items-center px-6 py-2 bg-indigo-600 hover:bg-indigo-700 rounded-lg font-medium text-sm sm:text-base transition">
-              {user ? "Go to Dashboard" : "Log In / Sign Up"}
-              <ArrowRightIcon className="w-4 h-4 ml-2 shrink-0" />
-            </a>
-          </Link>
+      {/* Description */}
+      <p className="text-center text-gray-300 max-w-xl mb-10 px-4">
+        A platform where creators grow their audience and fans earn rewards by promoting content.
+      </p>
 
-          <Link href="/leaderboard" legacyBehavior>
-            <a className="inline-flex items-center px-6 py-2 border border-slate-300 hover:bg-slate-200 hover:text-slate-900 rounded-lg font-medium text-sm sm:text-base transition">
-              View Leaderboard
-              <ArrowRightIcon className="w-4 h-4 ml-2 shrink-0" />
-            </a>
-          </Link>
-        </div>
-      </main>
+      {/* CTA Buttons */}
+      <div className="flex flex-col sm:flex-row items-center gap-4">
+        <Link
+          href="/auth"
+          className="inline-flex items-center justify-center px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-lg transition"
+        >
+          Log In / Sign Up
+          <ArrowRightIcon className="w-5 h-5 ml-2 shrink-0" />
+        </Link>
+
+        <Link
+          href="/leaderboard"
+          className="inline-flex items-center justify-center px-6 py-3 border border-zinc-600 hover:bg-white hover:text-black text-white font-semibold rounded-lg transition"
+        >
+          View Leaderboard
+          <ArrowRightIcon className="w-5 h-5 ml-2 shrink-0" />
+        </Link>
+      </div>
 
       {/* Footer */}
-      <footer className="mt-20 text-sm text-slate-400 text-center">
+      <footer className="mt-16 text-sm text-gray-400 text-center">
         &copy; {new Date().getFullYear()} CreatorChain — Built with ❤️
       </footer>
     </div>

@@ -1,10 +1,9 @@
-// pages/_app.js
-import { AuthProvider } from "../context/AuthContext";  // ✅ Import your context
 import "../styles/globals.css";
+import { AuthProvider } from "../context/AuthContext";
 
 function MyApp({ Component, pageProps }) {
   return (
-    <AuthProvider>               {/* ✅ Wrap your entire app */}
+    <AuthProvider>
       <Component {...pageProps} />
     </AuthProvider>
   );
