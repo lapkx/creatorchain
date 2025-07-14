@@ -35,6 +35,7 @@ export default function ViewerDashboard() {
             id: doc.id,
             title: data.title,
             creator: data.creator || "unknown",
+            // ✅ Correct referral link with your deployed domain
             link: `https://creatorchain.vercel.app/share/${doc.id}?ref=${user?.uid}`,
             points: data.rewardPerShare || 0,
           };
@@ -46,7 +47,7 @@ export default function ViewerDashboard() {
         const fetchedRewards = rewardSnap.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),
-          claimed: false, // Will be wired up later
+          claimed: false,
         }));
         setRewards(fetchedRewards);
 
@@ -119,9 +120,7 @@ export default function ViewerDashboard() {
                 </div>
                 <div className="flex flex-col sm:flex-row gap-2">
                   <button
-                    onClick={() =>
-                      navigator.clipboard.writeText(item.link)
-                    }
+                    onClick={() => navigator.clipboard.writeText(item.link)}
                     className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 rounded-lg text-sm font-medium"
                   >
                     Copy Link

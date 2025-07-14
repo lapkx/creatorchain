@@ -53,7 +53,7 @@ export default function Home() {
 
       {/* Footer */}
       <footer className="mt-16 text-sm text-gray-400 text-center">
-        &copy; {new Date().getFullYear()} CreatorChain — Built with ❤️
+        &copy; {new Date().getFullYear()} CreatorChain
       </footer>
     </div>
   );
