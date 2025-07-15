@@ -1,12 +1,16 @@
 import "../styles/globals.css";
 import { AuthProvider } from "../context/AuthContext";
-import { Analytics } from "@vercel/analytics/next"
-import { SpeedInsights } from "@vercel/speed-insights/next"
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 function MyApp({ Component, pageProps }) {
   return (
     <AuthProvider>
-      <Component {...pageProps} />
+      <>
+        <Component {...pageProps} />
+        <Analytics />
+        <SpeedInsights />
+      </>
     </AuthProvider>
   );
 }
